@@ -1,0 +1,75 @@
+.container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container h2{
+    font-size: 1.6rem;
+}
+
+.container span{
+    font-size: 0.9rem;
+    color: #404040;
+}
+
+
+
+.container form{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-login .input{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: end;
+}
+
+.input-login .input input{
+    width: 200px;
+    height: 25px;
+    border: 1.5px solid #ccc;
+    border-radius: 4px;
+    padding-left: 5px;
+}
+
+.input-login{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    
+}
+
+.input-login .error-input{
+    color: red;
+    font-size: 0.8rem;
+    font-weight: bold;
+    align-self: center;
+    display: none;
+}
+
+.input-buttons{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 25px;
+}
+
+.input-buttons button{
+    padding: 5px 10px;
+    background-color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100px;
+    color: white;
+    font-size: 0.9rem;
+}
