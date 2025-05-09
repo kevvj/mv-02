@@ -41,3 +41,10 @@ a {
 h1,h2,h3,h4,h5,h6,p,a,span{
   font-size: 12px;
 }
+
+.container{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
