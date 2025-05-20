@@ -1,0 +1,40 @@
+.main {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.main-career {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    flex-direction: column;
+    gap: 5px;
+    width: 30%;
+}
+
+.main-career:hover{
+    border: 1px solid black;
+    box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.main-career p{
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.main-career h3{
+    font-size: 0.9rem;
+}
+
+.careers-content {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    width: 80%;
+    justify-content: center;
+    flex-wrap: wrap;
+}

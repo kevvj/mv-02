@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: min-content;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 40px;
+}
+
+.header .icon{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.header ul{
+    display: flex;
+    gap: 20px;
+}
+
+li{
+    list-style: none;
+    font-size: 0.8rem;
+}
+
+.header input {
+    height: min-content;
+    padding: 5px 10px;
+}
+
+.header button {
+    height: min-content;
+}

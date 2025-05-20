@@ -1,13 +1,15 @@
 'use client'
-import { useRouter } from 'next/navigation'
-
+import Header from './components/Header'
+import Main from './components/Main'
 
 
 export default function Home() {
-  const router = useRouter()
+  
   return (
     <div className='container'>
-    <button onClick={()=>router.push('/auth/sign-in')}>LogIn</button>
+    <Header></Header>
+    <Main></Main>
+    
     </div>
-  );
+  )
 }

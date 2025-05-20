@@ -1,5 +1,7 @@
 @import "./css/Home.css";
 @import "./css/LogIn.css";
+@import "./css/Header.css";
+@import "./css/Main.css";
 
 :root {
   --background: #ffffff;
@@ -45,6 +47,13 @@ h1,h2,h3,h4,h5,h6,p,a,span{
 .container{
   height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+ 
+}
+
+button{
+  padding: 5px 20px;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
