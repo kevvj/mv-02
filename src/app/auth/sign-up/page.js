@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import { signIn } from '../../hooks/uselogin'
 import { useRouter } from 'next/navigation'
+import { signUp } from '@/app/hooks/useregister'
+import { requestPasswordReset } from '@/app/hooks/usechangepassword';
 
 export default function LogIn() {
 
@@ -9,12 +11,19 @@ export default function LogIn() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false)
+    const[name, setName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
 
     const router = useRouter()
 
     const handle = async (e) => {
         e.preventDefault()
-        router.push('/auth/sign-in')
+
+        signUp(name, lastName, email, password)
+        // router.push('/auth/sign-in')
+
+        
 
     }
 
@@ -27,11 +36,11 @@ export default function LogIn() {
                 <div className="input-auth">
 
                     <div className="input"><span>Nombres</span>
-                        <input type="text" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="text" value={name} onChange={e => setName(e.target.value)} />
                     </div>
 
                     <div className="input"><span>Apellidos</span>
-                        <input type="text" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
                     </div>
 
                     <div className="input"><span>Correo</span>
@@ -43,7 +52,7 @@ export default function LogIn() {
                     </div>
 
                     <div className="input"><span>Confirmar contraseña</span>
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                     </div>
 
                     <div className='input-checkbox'>
@@ -52,11 +61,15 @@ export default function LogIn() {
 
 
 
-                    <span className="error-input" style={{ display: error && "block" }} >Error en la contraseña o correo</span>
+                    <span className="error-input" style={{ display: error && "block" }} >Error</span>
                 </div>
 
                 <div className="input-buttons">
                     <button onClick={handle}>Registro</button>
+                    <button onClick={(e) =>{
+                        requestPasswordReset("kevinjvillalba774@gmail.com")
+                        e.preventDefault()
+                        }} style={{width:"170px"}}>Cambiar contraseña</button>
                 </div>
 
             </form>

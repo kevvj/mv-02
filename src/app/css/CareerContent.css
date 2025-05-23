@@ -1,0 +1,50 @@
+.career-content{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.career-content h1{
+    font-size: 2rem;
+    color: #333;
+}
+
+.semester{
+    border: 1px solid #ccc;
+    padding: 40px;
+    width: 80%;
+    border-radius: 5px;
+}
+
+.semester-number{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.semester h2{
+    font-size: 1.5rem;
+}
+
+.semester .item{
+    width: 20px;
+    height: 20px;
+}
+
+.semester-content{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.semester-content h3{
+    font-size: 1.2rem;
+    color: #6d6d6d;
+    margin-bottom: 10px;
+}

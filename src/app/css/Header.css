@@ -31,3 +31,7 @@ li{
 .header button {
     height: min-content;
 }
+
+.icon{
+    cursor: pointer;
+}

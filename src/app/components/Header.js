@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFaceAngry } from '@fortawesome/free-regular-svg-icons'
@@ -7,7 +8,7 @@ const Header = ()=>{
     const router = useRouter()
     return(
         <header className='header'>
-        <span className='icon'><FontAwesomeIcon icon={faGraduationCap} />UnicorHub</span>
+        <span className='icon' onClick={()=> router.push('/')}><FontAwesomeIcon icon={faGraduationCap} />UnicorHub</span>
 
         <ul className='header-nav'>
             <li>Material</li>
