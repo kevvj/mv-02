@@ -1,7 +1,6 @@
 
 import Header from "@/app/components/Header"
-import { ContentSP } from "./hooks/useContent"
-import { CoursesSP } from "./hooks/useContent"
+import { ContentSP, CoursesSP } from "./hooks/useContent"
 
 
 const CareerContent = async ({ params }) => {

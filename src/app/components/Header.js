@@ -6,6 +6,8 @@ import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 
 const Header = ()=>{
     const router = useRouter()
+
+    //aqui la mayoria de cosas faltan
     return(
         <header className='header'>
         <span className='icon' onClick={()=> router.push('/')}><FontAwesomeIcon icon={faGraduationCap} />UnicorHub</span>
