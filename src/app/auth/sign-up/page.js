@@ -21,9 +21,9 @@ export default function LogIn() {
         e.preventDefault()
 
         signUp(name, lastName, email, password)
-        // router.push('/auth/sign-in')
+        alert("Acepta en tu correo si pusiste todo bien🤖🤖🤖")
 
-        
+        router.push('/auth/sign-in')
 
     }
 
@@ -66,10 +66,10 @@ export default function LogIn() {
 
                 <div className="input-buttons">
                     <button onClick={handle}>Registro</button>
-                    <button onClick={(e) =>{
+                    {/* <button onClick={(e) =>{
                         requestPasswordReset("kevinjvillalba774@gmail.com")
                         e.preventDefault()
-                        }} style={{width:"170px"}}>Cambiar contraseña</button>
+                        }} style={{width:"170px"}}>Cambiar contraseña</button> */}
                 </div>
 
             </form>
