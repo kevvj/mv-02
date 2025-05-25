@@ -1,8 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import { useRouter } from 'next/navigation'
 
+import { useRouter } from 'next/navigation'
+import { CareerSP } from '../career/[id]/hooks/useContent'
 const Main = () => {
+
+    const prueba = CareerSP()
+
+    //esperen lo meto a la base de datos
+
     const careers = [
         {
             id: "Engineering", name: "Ingeniería", description: "Ingeniería es la aplicación práctica de conocimientos científicos y matemáticos para diseñar, construir y optimizar estructuras, máquinas, sistemas o procesos que solucionan problemas y mejoran la vida humana."

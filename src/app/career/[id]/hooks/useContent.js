@@ -13,9 +13,21 @@ export const ContentSP = async () => {
     return data
 }
 
-export const CoursesSP = async () =>{
+export const CoursesSP = async () => {
     const { data, error } = await supabase
         .from('courses')
+        .select('*')
+
+    if (error) {
+        console.log(error)
+        return
+    }
+    return data
+}
+
+export const CareerSP = async () => {
+    const { data, error } = await supabase
+        .from('careers')
         .select('*')
 
     if (error) {
