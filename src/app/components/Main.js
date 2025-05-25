@@ -15,8 +15,6 @@ const Main = () => {
         getCareers()
     },[])
 
-    //esperen lo meto a la base de datos
-
     
 
     const router = useRouter()

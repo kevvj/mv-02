@@ -11,6 +11,8 @@ const CareerContent = async ({ params }) => {
     const Content = await ContentSP()
     const Courses = await CoursesSP()
 
+    //esta vaina da un lag que te cagas
+
     return (
         <>
             <Header></Header>
