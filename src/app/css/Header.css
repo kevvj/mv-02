@@ -35,3 +35,7 @@ li{
 .icon{
     cursor: pointer;
 }
+
+.header-nav li{
+    cursor: pointer;
+}

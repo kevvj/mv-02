@@ -45,6 +45,10 @@ const CareerContent = async ({ params }) => {
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                             allowFullScreen
                                                         />
+
+                                                        {item.pruebadeobjetos &&
+                                                        <img src ={item.pruebadeobjetos.imagen}></img>
+                                                        }
                                                     </div>
                                                 ))}
                                             </div>
