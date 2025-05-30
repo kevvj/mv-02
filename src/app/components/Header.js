@@ -24,7 +24,7 @@ const Header = () => {
             <ul className='header-nav'>
                 <li>Material</li>
                 <li>Recursos</li>
-                <li onClick = {() => router.push('/auth/sign-in')}>Documentos</li>
+                <li onClick = {() => router.push('/upload')}>Documentos</li>
                 <li>Biblioteca</li>
                 <li>Foro</li>
             </ul>
