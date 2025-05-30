@@ -1,0 +1,17 @@
+.upload-file {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.upload-file-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
