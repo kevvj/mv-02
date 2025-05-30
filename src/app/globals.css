@@ -4,6 +4,7 @@
 @import "./css/Main.css";
 @import "./css/CareerContent.css";
 @import "./css/UploadFile.css";
+@import "./css/DownloadItems.css";
 
 :root {
   --background: #ffffff;

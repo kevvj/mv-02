@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react"
 import supabase from "../hooks/supabase"
+import { Excel, Pdf, Word } from "./components/DownloadItems"
 
 const UploadFile = () => {
 
@@ -84,8 +85,10 @@ const UploadFile = () => {
             <div>Prueba de archivo seleccionado: {file && file.name}</div>
 
             <button onClick={() => uploadFile()}>Subir archivo</button>
-            <a href={pruebaDeUrl}>Link</a>
-
+            
+            <Pdf></Pdf>
+            <Word></Word>
+            <Excel></Excel>
         </div>
     )
 }
