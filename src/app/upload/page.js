@@ -64,6 +64,7 @@ const UploadFile = () => {
             console.log('Error:', error)
         } else {
             console.log('Archivo subido')
+            alert('Se subió bien, recarga la pagina xD')
         }
     }
 

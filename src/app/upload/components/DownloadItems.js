@@ -9,7 +9,7 @@ export const Pdf = ({href,name}) => {
                 <img src="/pdf.png" className="download-item-name-icon"></img>
                 <p>{name}</p>
             </div>
-            <a className="download-icon" href = {href}>
+            <a className="download-icon" href = {href} target="_blank">
                 <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon>
             </a>
         </span>
@@ -24,7 +24,7 @@ export const Word = ({href,name}) => {
                 <p>{name}</p>
             </div>
 
-            <a className="download-icon" href = {href}>
+            <a className="download-icon" href = {href} target="_blank">
                 <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon>
             </a>
         </span>
@@ -38,7 +38,7 @@ export const Excel = ({href,name}) => {
                 <img src="/excel.png" className="download-item-name"></img>
                 <p>{name}</p>
             </div>
-            <a className="download-icon" href = {href}>
+            <a className="download-icon" href = {href} target="_blank">
                 <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon>
             </a>
         </span>
