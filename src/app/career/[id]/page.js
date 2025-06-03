@@ -46,9 +46,6 @@ const CareerContent = async ({ params }) => {
                                                             allowFullScreen
                                                         />
 
-                                                        {item.pruebadeobjetos &&
-                                                        <img src ={item.pruebadeobjetos.imagen}></img>
-                                                        }
                                                     </div>
                                                 ))}
                                             </div>

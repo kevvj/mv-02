@@ -2,45 +2,45 @@ import { faDownload } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
-export const Pdf = () => {
+export const Pdf = ({href,name}) => {
     return (
         <span className="download-item">
             <div className="download-item-name">
-                <img src="/pdf.png" className="download-item-name"></img>
-                nombre
+                <img src="/pdf.png" className="download-item-name-icon"></img>
+                <p>{name}</p>
             </div>
-            <div className="download-icon">
+            <a className="download-icon" href = {href}>
                 <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon>
-            </div>
+            </a>
         </span>
     )
 }
 
-export const Word = () => {
+export const Word = ({href,name}) => {
     return (
         <span className="download-item">
             <div className="download-item-name">
-                <img src="/word.png" className="download-item-name"></img>
-                nombre
+                <img src="/word.png" className="download-item-name-icon"></img>
+                <p>{name}</p>
             </div>
 
-            <div className="download-icon">
+            <a className="download-icon" href = {href}>
                 <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon>
-            </div>
+            </a>
         </span>
     )
 }
 
-export const Excel = () => {
+export const Excel = ({href,name}) => {
     return (
         <span className="download-item">
-            <div className="download-item-name">
+            <div className="download-item-name-icon">
                 <img src="/excel.png" className="download-item-name"></img>
-                nombre
+                <p>{name}</p>
             </div>
-            <div className="download-icon">
+            <a className="download-icon" href = {href}>
                 <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon>
-            </div>
+            </a>
         </span>
     )
 }

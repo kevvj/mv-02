@@ -1,20 +1,35 @@
-.download-item{
+.download-item {
     padding: 10px 10px;
     border: 1px solid #ccc;
     display: flex;
     gap: 20px;
-    width: 200px;
+    width: 230px;
     justify-content: space-between;
     flex-wrap: nowrap;
+}
+
+.download-item-name-icon {
+    display: flex;
+    width: 17px;
+    height: min-content;
 }
 
 .download-item-name{
     display: flex;
     gap: 10px;
-    width: 17px;
-    height: min-content;
+    max-width: 170px;
 }
 
-.download-icon{
+.download-item-name p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.download-icon {
     cursor: pointer;
+}
+
+.img-item{
+    width: 200px;
 }

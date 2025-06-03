@@ -2,11 +2,31 @@
 import { useState } from "react"
 import supabase from "../hooks/supabase"
 import { Excel, Pdf, Word } from "./components/DownloadItems"
+import { useEffect } from "react"
+import ImgItem from "./components/ImgViewer"
 
 const UploadFile = () => {
 
     const [file, setFile] = useState(null)
     const [pruebaDeUrl, setPruebaDeUrl] = useState(null)
+    const [user, setUser] = useState(null)
+    const [urls, setUrls] = useState(null)
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+
+            if (!user) {
+                console.log('Usuario no encontrado')
+            } else {
+                setUser(user)
+                handleFileList(user.id)
+            }
+        }
+
+        fetchUser()
+
+    }, [])
 
     const handleFile = (e) => {
         const selectedFile = e.target.files[0]
@@ -17,13 +37,6 @@ const UploadFile = () => {
     const uploadFile = async () => {
         if (!file) {
             console.log('No hay ningún archivo seleccionado')
-            return
-        }
-        const {
-            data: { user }
-        } = await supabase.auth.getUser()
-        if (!user) {
-            console.log('Usuario no identificado')
             return
         }
 
@@ -57,23 +70,22 @@ const UploadFile = () => {
     const handleFileList = async (folder) => {
         const { data, error } = await supabase.storage
             .from('files')
-            .list(folder)
+            .list('allfiles')
 
         if (error) {
             console.log(error)
             return
         }
 
-        const urls = data.map(file => {
+        const urlss = data.map(file => {
             const { data, error } = supabase.storage
                 .from('files')
-                .getPublicUrl(`${folder}/${file.name}`)
+                .getPublicUrl(`allfiles/${file.name}`)
 
             return { name: file.name, url: data.publicUrl }
         })
 
-        console.log(urls)
-        setPruebaDeUrl(urls[8].url)
+        setUrls(urlss)
     }
 
     return (
@@ -85,10 +97,18 @@ const UploadFile = () => {
             <div>Prueba de archivo seleccionado: {file && file.name}</div>
 
             <button onClick={() => uploadFile()}>Subir archivo</button>
-            
-            <Pdf></Pdf>
-            <Word></Word>
-            <Excel></Excel>
+
+          
+            <div>
+                {urls && urls.map(item =>(
+                    <div key ={item.url}>
+                        {item.url.endsWith('.pdf') && <Pdf href={item.url} name={item.name}></Pdf>}
+                        {item.url.endsWith('.docx') && <Word href={item.url} name={item.name}></Word>}
+                        {item.url.endsWith('.csv') && <Excel href={item.url} name={item.name}></Excel>}
+                        {item.url.match(/\.(jpg|jpeg|png|gif|webp)$/i) && <ImgItem src={item.url}></ImgItem>}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
