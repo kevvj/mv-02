@@ -9,7 +9,6 @@ export default function Home() {
     <div className='container'>
     <Header></Header>
     <Main></Main>
-    
     </div>
   )
 }
