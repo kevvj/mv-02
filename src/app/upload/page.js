@@ -8,7 +8,6 @@ import ImgItem from "./components/ImgViewer"
 const UploadFile = () => {
 
     const [file, setFile] = useState(null)
-    const [pruebaDeUrl, setPruebaDeUrl] = useState(null)
     const [user, setUser] = useState(null)
     const [urls, setUrls] = useState(null)
 
