@@ -18,6 +18,7 @@ const UploadFile = () => {
 
             if (!user) {
                 console.log('Usuario no encontrado')
+                alert('Usuario no loggeado')
             } else {
                 setUser(user)
                 handleFileList(user.id)
