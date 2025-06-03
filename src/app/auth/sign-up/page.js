@@ -23,7 +23,6 @@ export default function LogIn() {
         signUp(name, lastName, email, password)
         alert("Acepta en tu correo si pusiste todo bien🤖🤖🤖")
 
-        router.push('/auth/sign-in')
 
     }
 
