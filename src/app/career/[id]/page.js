@@ -1,6 +1,10 @@
 
 import Header from "@/app/components/Header"
 import { ContentSP, CoursesSP } from "./hooks/useContent"
+import { getFilesTable } from "@/app/upload/hooks/LoadCourseContent"
+import { Excel, Pdf, Word } from "../../upload/components/DownloadItems"
+import ImgItem from "../../upload/components/ImgViewer"
+import { Load } from "@/app/upload/hooks/LoadCourseContent"
 
 
 const CareerContent = async ({ params }) => {
@@ -11,6 +15,8 @@ const CareerContent = async ({ params }) => {
     const Courses = await CoursesSP()
 
     //esta vaina da un lag que te cagas
+
+    const FILES = await getFilesTable()
 
     return (
         <>
@@ -46,6 +52,16 @@ const CareerContent = async ({ params }) => {
                                                             allowFullScreen
                                                         />
 
+                                                    </div>
+                                                ))}
+
+                                               
+                                                {FILES.filter(f => f.course == content.name).map(file => (
+                                                    //ignoren esto xD despues lo arreglo
+                                                    <div key={file.id}>
+                                                        <Load name={file.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                                                            .replace(/\s+/g, '_')
+                                                            .replace(/[^a-zA-Z0-9._-]/g, '')} ></Load>
                                                     </div>
                                                 ))}
                                             </div>

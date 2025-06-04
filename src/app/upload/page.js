@@ -4,12 +4,16 @@ import supabase from "../hooks/supabase"
 import { Excel, Pdf, Word } from "./components/DownloadItems"
 import { useEffect } from "react"
 import ImgItem from "./components/ImgViewer"
+import {Load} from "./hooks/LoadCourseContent"
+import Header from "../components/Header"
 
 const UploadFile = () => {
 
     const [file, setFile] = useState(null)
     const [user, setUser] = useState(null)
     const [urls, setUrls] = useState(null)
+
+    const [isError, setIsError] = useState(false)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -26,7 +30,30 @@ const UploadFile = () => {
 
         fetchUser()
 
+
+
     }, [])
+
+    const handleTableFile = async (name, user_id) => {
+
+        if (isError) return
+
+        const { data, error } = await supabase
+            .from('files')
+            .insert([{
+                name,
+                user_id
+            }])
+            .select('*')
+
+        if (error) {
+            console.log(error)
+            setIsError(true)
+            return
+        }
+
+        console.log(data)
+    }
 
     const handleFile = (e) => {
         const selectedFile = e.target.files[0]
@@ -53,6 +80,10 @@ const UploadFile = () => {
         uploadFileToFolder(personalFilePath)
 
         handleFileList(user.id)
+
+        handleTableFile(file.name, user.id)
+
+
     }
 
     const uploadFileToFolder = async (filePath) => {
@@ -63,6 +94,7 @@ const UploadFile = () => {
         if (error) {
             console.log('Error:', error)
             alert('Error:', error)
+            setIsError(true)
         } else {
             console.log('Archivo subido')
             alert('Se subió bien, recarga la pagina xD')
@@ -76,6 +108,7 @@ const UploadFile = () => {
 
         if (error) {
             console.log(error)
+            setIsError(true)
             return
         }
 
@@ -91,27 +124,29 @@ const UploadFile = () => {
     }
 
     return (
-        <div className="upload-file-container">
+        <>
+        <Header></Header>
+            <div className="upload-file-container">
 
-            <label className="upload-file" htmlFor="fileInput">Seleccionar archivo</label>
-            <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpeg,.png,.jpg" style={{ display: "none" }} onChange={(e) => handleFile(e)} />
+                <label className="upload-file" htmlFor="fileInput">Seleccionar archivo</label>
+                <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpeg,.png,.jpg" style={{ display: "none" }} onChange={(e) => handleFile(e)} />
 
-            <div>Prueba de archivo seleccionado: {file && file.name}</div>
+                <div>Prueba de archivo seleccionado: {file && file.name}</div>
 
-            <button onClick={() => uploadFile()}>Subir archivo</button>
+                <button onClick={() => uploadFile()}>Subir archivo</button>
 
-          
-            <div>
-                {urls && urls.map(item =>(
-                    <div key ={item.url}>
-                        {item.url.endsWith('.pdf') && <Pdf href={item.url} name={item.name}></Pdf>}
-                        {item.url.endsWith('.docx') && <Word href={item.url} name={item.name}></Word>}
-                        {item.url.endsWith('.csv') && <Excel href={item.url} name={item.name}></Excel>}
-                        {item.url.match(/\.(jpg|jpeg|png|gif|webp)$/i) && <ImgItem src={item.url}></ImgItem>}
-                    </div>
-                ))}
+
+                <div>
+                    {urls && urls.map(item => (
+                        <div key={item.url}>
+                            <Load name={item.name}></Load>
+                        </div>
+                    ))}
+                </div>
+
+                <Load></Load>
             </div>
-        </div>
+        </>
     )
 }
 
