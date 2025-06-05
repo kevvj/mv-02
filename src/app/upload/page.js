@@ -1,11 +1,10 @@
 'use client'
 import { useState } from "react"
 import supabase from "../hooks/supabase"
-import { Excel, Pdf, Word } from "./components/DownloadItems"
 import { useEffect } from "react"
-import ImgItem from "./components/ImgViewer"
-import {Load} from "./hooks/LoadCourseContent"
+import { Load } from "./hooks/LoadCourseContent"
 import Header from "../components/Header"
+import { ContentSP, CoursesSP, CareerSP } from "../career/[id]/hooks/useContent"
 
 const UploadFile = () => {
 
@@ -14,6 +13,16 @@ const UploadFile = () => {
     const [urls, setUrls] = useState(null)
 
     const [isError, setIsError] = useState(false)
+
+    const [courses, setCourses] = useState([])
+    const [careers, setCareers] = useState([])
+
+    const [courseSelected, setCourseSelected] = useState(null)
+    const [careerSelected, setCareerSelected] = useState(null)
+
+
+
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -28,13 +37,21 @@ const UploadFile = () => {
             }
         }
 
+        const fetchContent = async () => {
+            const Content = await ContentSP()
+            const Courses = await CoursesSP()
+            const Careers = await CareerSP()
+
+            setCourses(Courses)
+            setCareers(Careers)
+        }
+
+        fetchContent()
         fetchUser()
-
-
-
     }, [])
 
     const handleTableFile = async (name, user_id) => {
+
 
         if (isError) return
 
@@ -42,7 +59,9 @@ const UploadFile = () => {
             .from('files')
             .insert([{
                 name,
-                user_id
+                user_id,
+                career: careerSelected ? careerSelected.id : "",
+                course: courseSelected ? courseSelected.name : ""
             }])
             .select('*')
 
@@ -125,7 +144,34 @@ const UploadFile = () => {
 
     return (
         <>
-        <Header></Header>
+            <Header></Header>
+
+            <select onChange={e => {
+                setCareerSelected(JSON.parse(e.target.value))
+            }}>
+
+                <option value={"null"}>Carrera</option>
+
+                {careers.map(item => (
+                    <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
+                ))}
+
+            </select>
+
+            <select onChange={e => setCourseSelected(JSON.parse(e.target.value))}>
+
+                <option value={"null"}>Curso</option>
+
+                {careerSelected && courses.filter(f => f.career == careerSelected.id).map(item => (
+                    <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
+                ))}
+
+                {!careerSelected && courses.map(item => (
+                    <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
+                ))}
+
+            </select>
+
             <div className="upload-file-container">
 
                 <label className="upload-file" htmlFor="fileInput">Seleccionar archivo</label>
@@ -144,7 +190,6 @@ const UploadFile = () => {
                     ))}
                 </div>
 
-                <Load></Load>
             </div>
         </>
     )
