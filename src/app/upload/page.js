@@ -12,7 +12,7 @@ const UploadFile = () => {
     const [user, setUser] = useState(null)
     const [urls, setUrls] = useState(null)
 
-    const [isError, setIsError] = useState(false)
+    const [isError, setIsError] = useState("")
 
     const [courses, setCourses] = useState([])
     const [careers, setCareers] = useState([])
@@ -20,20 +20,17 @@ const UploadFile = () => {
     const [courseSelected, setCourseSelected] = useState(null)
     const [careerSelected, setCareerSelected] = useState(null)
 
-
-
-
-
     useEffect(() => {
         const fetchUser = async () => {
             const { data: { user } } = await supabase.auth.getUser()
 
             if (!user) {
-                console.log('Usuario no encontrado')
                 alert('Usuario no loggeado')
+                setIsError('El usuario no está loggeado')
             } else {
                 setUser(user)
                 handleFileList(user.id)
+                setIsError('')
             }
         }
 
@@ -52,7 +49,6 @@ const UploadFile = () => {
 
     const handleTableFile = async (name, user_id) => {
 
-
         if (isError) return
 
         const { data, error } = await supabase
@@ -67,9 +63,11 @@ const UploadFile = () => {
 
         if (error) {
             console.log(error)
-            setIsError(true)
+            setIsError(error)
             return
         }
+
+        setIsError('')
 
         console.log(data)
     }
@@ -83,6 +81,19 @@ const UploadFile = () => {
     const uploadFile = async () => {
         if (!file) {
             console.log('No hay ningún archivo seleccionado')
+            setIsError('No hay ningún archivo seleccionado')
+            return
+        }
+
+        if (!careerSelected) {
+            console.log('No hay ninguna carrera seleccionada')
+            setIsError('No hay ninguna carrera seleccionada')
+
+            return
+        }
+        if (!courseSelected) {
+            console.log('No hay ningún curso seleccionado')
+            setIsError('No hay ningún curso seleccionado')
             return
         }
 
@@ -101,6 +112,7 @@ const UploadFile = () => {
         handleFileList(user.id)
 
         handleTableFile(file.name, user.id)
+        setIsError('')
 
 
     }
@@ -113,10 +125,12 @@ const UploadFile = () => {
         if (error) {
             console.log('Error:', error)
             alert('Error:', error)
-            setIsError(true)
+            setIsError(error)
         } else {
             console.log('Archivo subido')
             alert('Se subió bien, recarga la pagina xD')
+            setIsError('')
+
         }
     }
 
@@ -127,7 +141,7 @@ const UploadFile = () => {
 
         if (error) {
             console.log(error)
-            setIsError(true)
+            setIsError(error)
             return
         }
 
@@ -135,6 +149,13 @@ const UploadFile = () => {
             const { data, error } = supabase.storage
                 .from('files')
                 .getPublicUrl(`allfiles/${file.name}`)
+
+            if (error) {
+                setIsError(error)
+                return
+            }
+            setIsError('')
+
 
             return { name: file.name, url: data.publicUrl }
         })
@@ -146,31 +167,36 @@ const UploadFile = () => {
         <>
             <Header></Header>
 
-            <select onChange={e => {
-                setCareerSelected(JSON.parse(e.target.value))
-            }}>
+            <div className="view-options-container">
+                <select onChange={e => {
+                    e.target.value ? setCareerSelected(JSON.parse(e.target.value)) : setCareerSelected(null)
 
-                <option value={"null"}>Carrera</option>
+                }}>
 
-                {careers.map(item => (
-                    <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
-                ))}
+                    <option value="">Carrera</option>
 
-            </select>
+                    {careers.map(item => (
+                        <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
+                    ))}
 
-            <select onChange={e => setCourseSelected(JSON.parse(e.target.value))}>
+                </select>
 
-                <option value={"null"}>Curso</option>
+                <select onChange={e => {
+                    e.target.value ? setCourseSelected(JSON.parse(e.target.value)) : setCourseSelected(null)
+                }}>
 
-                {careerSelected && courses.filter(f => f.career == careerSelected.id).map(item => (
-                    <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
-                ))}
+                    <option value="">Curso</option>
 
-                {!careerSelected && courses.map(item => (
-                    <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
-                ))}
+                    {careerSelected && courses.filter(f => f.career == careerSelected.id).map(item => (
+                        <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
+                    ))}
 
-            </select>
+                    {!careerSelected && courses.map(item => (
+                        <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
+                    ))}
+
+                </select>
+            </div>
 
             <div className="upload-file-container">
 
@@ -181,10 +207,12 @@ const UploadFile = () => {
 
                 <button onClick={() => uploadFile()}>Subir archivo</button>
 
+                {isError && <p>{isError}</p>}
+
 
                 <div>
                     {urls && urls.map(item => (
-                        <div key={item.url}>
+                        <div key={item.url} className="load-item">
                             <Load name={item.name}></Load>
                         </div>
                     ))}

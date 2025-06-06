@@ -13,4 +13,19 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
+}
+
+.view-options-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.load-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
