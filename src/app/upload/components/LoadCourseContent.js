@@ -1,6 +1,6 @@
 import supabase from "@/app/hooks/supabase"
-import { Excel, Pdf, Word } from "../components/DownloadItems"
-import ImgItem from "../components/ImgViewer"
+import { Excel, Pdf, Word } from "./DownloadItems"
+import ImgItem from "./ImgViewer"
 
 export const Load = ({ name }) => {
 
