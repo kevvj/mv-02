@@ -2,7 +2,16 @@ import supabase from "@/app/hooks/supabase"
 
 export const handleTableFile = async (name, user_id, isError, setIsError, careerSelected, courseSelected) => {
 
-    if (isError) return
+
+    if (!careerSelected) {
+        setIsError('No hay ninguna carreara seleccionada')
+        return
+    }
+
+    if (!courseSelected) {
+        setIsError('No hay ningun curso seleccionado')
+        return
+    }
 
     const { data, error } = await supabase
         .from('files')
@@ -21,8 +30,6 @@ export const handleTableFile = async (name, user_id, isError, setIsError, career
     }
 
     setIsError('')
-
-    console.log(data)
 }
 
 export const handleFile = (e, setFile) => {
@@ -65,7 +72,7 @@ export const uploadFile = async (file, setIsError, careerSelected, courseSelecte
 
     handleFileList(setIsError, setUrls)
 
-    handleTableFile(file.name, user.id, isError, setIsError, careerSelected, courseSelected)
+
     setIsError('')
 
 }
@@ -113,4 +120,21 @@ export const handleFileList = async (setIsError, setUrls) => {
     })
 
     setUrls(urlss)
+}
+
+export const handleAdd = (name, setIsError, careerSelected, courseSelected, user, isError, setUrls) => {
+    handleTableFile(name, user.id, isError, setIsError, careerSelected, courseSelected)
+}
+
+export const handleDelete = async (name, setUrls, setIsError) => {
+    const { data, error } = await supabase.storage
+        .from('files')
+        .remove([`allfiles/${name}`])
+
+    if (error) {
+        setIsError(error)
+        return
+    } else {
+        handleFileList(setIsError, setUrls)
+    }
 }

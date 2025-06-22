@@ -9,7 +9,7 @@ export const Load = ({ name }) => {
         .getPublicUrl(`allfiles/${name}`)
 
     return (
-        <div onClick={console.log(name)}>
+        <div>
             {data.publicUrl.endsWith('.pdf') && <Pdf href={data.publicUrl} name={name}></Pdf>}
             {data.publicUrl.endsWith('.docx') && <Word href={data.publicUrl} name={name}></Word>}
             {data.publicUrl.endsWith('.csv') && <Excel href={data.publicUrl} name={name}></Excel>}
@@ -28,7 +28,6 @@ export const getFilesTable = async () =>{
         console.log(error)
         return
     }else{
-        console.log(data)
         return data
     }
 }

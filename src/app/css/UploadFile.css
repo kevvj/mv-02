@@ -27,5 +27,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
 
+.load-items-description{
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    align-items: center;
+}
+
+.load-items-description p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.load-items-name{
+    max-width: 150px;
+    font-size: 1.2rem;
+}
+
+.load-items-trashicon{
+    color: rgb(255, 130, 96);
+    cursor:pointer;
+}
+
+.load-items-checkicon{
+    color: rgb(183, 244, 202);
+    cursor:pointer;
+}
+
+.load-items-trashicon:hover{
+    color: rgb(255, 55, 0);
+}
+
+.load-items-checkicon:hover{
+    color: rgb(0, 255, 81);
 }

@@ -4,7 +4,10 @@ import supabase from "../../hooks/supabase"
 import { useEffect } from "react"
 import { Load } from "./LoadCourseContent"
 import { ContentSP, CoursesSP, CareerSP } from "../../career/[id]/hooks/useContent"
-import { handleFile, uploadFile, handleFileList } from "../hooks/HandleUploads"
+import { handleFile, uploadFile, handleFileList, handleAdd, handleDelete } from "../hooks/HandleUploads"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"
 
 const UploadFiles = () => {
     const [file, setFile] = useState(null)
@@ -40,6 +43,8 @@ const UploadFiles = () => {
         fetchUser()
     }, [])
 
+
+
     return (
         <>
             <div className="view-options-container">
@@ -49,7 +54,7 @@ const UploadFiles = () => {
                 }}>
 
                     <option value="">Carrera</option>
-                    
+
                     {careers.map(item => (
                         <option key={item.id} value={JSON.stringify(item)}>{item.name}</option>
                     ))}
@@ -89,6 +94,20 @@ const UploadFiles = () => {
                     {urls && urls.map(item => (
                         <div key={item.url} className="load-item">
                             <Load name={item.name}></Load>
+                            <div className="load-items-description">
+                                <div className="load-items-name">
+                                    <p>{item.name}</p>
+                                </div>
+                                <div className="load-items-trashicon">
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError)}></FontAwesomeIcon>
+                                </div>
+
+                                <div className="load-items-checkicon">
+                                    <FontAwesomeIcon icon={faCircleCheck} onClick={() => handleAdd(
+                                        item.name, setIsError, careerSelected, courseSelected, user, isError, setUrls
+                                    )}></FontAwesomeIcon>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>

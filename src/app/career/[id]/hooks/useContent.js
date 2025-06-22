@@ -34,6 +34,5 @@ export const CareerSP = async () => {
         console.log(error)
         return
     }
-    console.log(data)
     return data
 }
