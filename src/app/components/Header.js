@@ -13,8 +13,6 @@ const Header = () => {
 
     const router = useRouter()
 
-
-
     useEffect(() => {
         const isLoggedIn = async () => {
             const { data: { user } } = await supabase.auth.getUser()
@@ -41,8 +39,8 @@ const Header = () => {
             </ul>
 
             <input type="text" className='header-search'></input>
-            {!user ? <button onClick={() => router.push('/auth/sign-in')} className='header-login'>LogIn</button> : 
-            <div onClick={() => router.push('/auth/sign-in')} className='header-icon'>
+            {!user ? <button onClick={() => router.push('/auth/sign-in')} className='header-login'>Iniciar sesión</button> : 
+            <div onClick={() => router.push('/profile')} className='header-icon'>
                 <FontAwesomeIcon icon={faCircleUser} size='2x'></FontAwesomeIcon >
             </div>
             }
