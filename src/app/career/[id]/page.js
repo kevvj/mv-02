@@ -1,10 +1,10 @@
 
 import Header from "@/app/components/Header"
 import { ContentSP, CoursesSP } from "./hooks/useContent"
-import { getFilesTable } from "@/app/upload/components/LoadCourseContent"
-import { Excel, Pdf, Word } from "../../upload/components/DownloadItems"
-import ImgItem from "../../upload/components/ImgViewer"
-import { Load } from "@/app/upload/components/LoadCourseContent"
+import { getFilesTable } from "@/app/components/upload/LoadCourseContent"
+import { Excel, Pdf, Word } from "../../components/upload/DownloadItems"
+import ImgItem from "../../components/upload/ImgViewer"
+import { Load } from "@/app/components/upload/LoadCourseContent"
 
 
 const CareerContent = async ({ params }) => {
