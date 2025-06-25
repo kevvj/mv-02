@@ -28,6 +28,7 @@ export const getFilesTable = async () =>{
         console.log(error)
         return
     }else{
+        console.log(data)
         return data
     }
 }

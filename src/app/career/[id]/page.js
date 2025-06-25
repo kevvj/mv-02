@@ -17,6 +17,7 @@ const CareerContent = async ({ params }) => {
     //esta vaina da un lag que te cagas
 
     const FILES = await getFilesTable()
+    
 
     return (
         <>
