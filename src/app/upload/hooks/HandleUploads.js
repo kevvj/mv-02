@@ -27,6 +27,8 @@ export const handleTableFile = async (name, user_id, isError, setIsError, career
         console.log(error)
         setIsError(error)
         return
+    }else{
+        console.log(data)
     }
 
     setIsError('')
@@ -70,8 +72,7 @@ export const uploadFile = async (file, setIsError, careerSelected, courseSelecte
     uploadFileToFolder(filePath, setIsError, file)
     uploadFileToFolder(personalFilePath, setIsError, file)
 
-    handleFileList(setIsError, setUrls)
-
+    handleFileList(setIsError, setUrls, user)
 
     setIsError('')
 
@@ -93,10 +94,10 @@ export const uploadFileToFolder = async (filePath, setIsError, file) => {
     }
 }
 
-export const handleFileList = async (setIsError, setUrls) => {
+export const handleFileList = async (setIsError, setUrls, user) => {
     const { data, error } = await supabase.storage
         .from('files')
-        .list('allfiles')
+        .list(user.user_metadata.type === "user" ? user.id : 'allfiles')
 
     if (error) {
         console.log(error)
@@ -107,7 +108,9 @@ export const handleFileList = async (setIsError, setUrls) => {
     const urlss = data.map(file => {
         const { data, error } = supabase.storage
             .from('files')
-            .getPublicUrl(`allfiles/${file.name}`)
+            .getPublicUrl(
+                user.user_metadata.type === "user" ? `${user.id}/${file.name}` :
+                    user.user_metadata.type === "admin" && `allfiles/${file.name}`)
 
         if (error) {
             setIsError(error)
@@ -126,7 +129,7 @@ export const handleAdd = (name, setIsError, careerSelected, courseSelected, user
     handleTableFile(name, user.id, isError, setIsError, careerSelected, courseSelected)
 }
 
-export const handleDelete = async (name, setUrls, setIsError) => {
+export const handleDelete = async (name, setUrls, setIsError, user) => {
     const { data, error } = await supabase.storage
         .from('files')
         .remove([`allfiles/${name}`])
@@ -135,6 +138,10 @@ export const handleDelete = async (name, setUrls, setIsError) => {
         setIsError(error)
         return
     } else {
-        handleFileList(setIsError, setUrls)
+        handleFileList(setIsError, setUrls, user)
     }
+
+    user.user_metadata.type === "user" && await supabase.storage
+        .from('files')
+        .remove([`${user.id}/${name}`])
 }

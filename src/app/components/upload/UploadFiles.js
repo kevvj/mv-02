@@ -28,7 +28,7 @@ const UploadFiles = () => {
                 setIsError('El usuario no está loggeado')
             } else {
                 setUser(user)
-                handleFileList(setIsError, setUrls)
+                handleFileList(setIsError, setUrls, user)
                 setIsError('')
             }
         }
@@ -99,7 +99,7 @@ const UploadFiles = () => {
                                     <p>{item.name}</p>
                                 </div>
                                 <div className="load-items-trashicon">
-                                    <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError)}></FontAwesomeIcon>
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError, user)}></FontAwesomeIcon>
                                 </div>
 
                                 <div className="load-items-checkicon">
