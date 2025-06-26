@@ -110,14 +110,14 @@ export const handleFileList = async (setIsError, setUrls, user) => {
     setUrls(urlss)
 }
 
-//Agregar 
+//Agregar a la tabla donde están los archivos permitidos
 
 export const handleAdd = (name, setIsError, careerSelected, courseSelected, user, isError, setUrls) => {
     handleTableFile(name, user.id, isError, setIsError, careerSelected, courseSelected)
 }
 
 
-//Eliminar
+//Eliminar ya sea de la personal para usuarios o eliminar en todas partes para los admins
 export const handleDelete = async (name, setUrls, setIsError, user) => {
     const { data, error } = await supabase.storage
         .from('files')
