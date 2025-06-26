@@ -102,11 +102,11 @@ const UploadFiles = () => {
                                     <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError, user)}></FontAwesomeIcon>
                                 </div>
 
-                                <div className="load-items-checkicon">
+                                {user.user_metadata.type === "admin" && <div className="load-items-checkicon">
                                     <FontAwesomeIcon icon={faCircleCheck} onClick={() => handleAdd(
                                         item.name, setIsError, careerSelected, courseSelected, user, isError, setUrls
                                     )}></FontAwesomeIcon>
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     ))}
