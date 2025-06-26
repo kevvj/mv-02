@@ -38,7 +38,7 @@ export const handleFile = (e, setFile) => {
 
 
 //Aqui se sube el archivo a la base de datos para despues ser revisada
-export const uploadFile = async (file, setIsError, careerSelected, courseSelected, user, isError, setUrls) => {
+export const uploadFile = async (file, setIsError, careerSelected, courseSelected, user, isError, setUrls, description) => {
     if (!file) {
         console.log('No hay ningún archivo seleccionado')
         setIsError('No hay ningún archivo seleccionado')
@@ -60,60 +60,125 @@ export const uploadFile = async (file, setIsError, careerSelected, courseSelecte
         .replace(/[^a-zA-Z0-9._-]/g, '')
     const filePath = `allfiles/${safeName}`
     const personalFilePath = `${user.id}/${safeName}`
-    uploadFileToFolder(filePath, setIsError, file)
-    uploadFileToFolder(personalFilePath, setIsError, file)
-    handleFileList(setIsError, setUrls, user)
+    uploadFileToFolder(filePath, setIsError, file, setUrls, user)
+
+    user.user_metadata.type === "user" && uploadFileToFolder(personalFilePath, setIsError, file, setUrls, user)
+
+    handleAddPendingFiles(safeName, user, setIsError, careerSelected, courseSelected, description, setUrls)
+
     setIsError('')
 }
 
 
 //Cargar el archivo a una carpeta en especifico ya sea a la general o a la personal
-export const uploadFileToFolder = async (filePath, setIsError, file) => {
+export const uploadFileToFolder = async (filePath, setIsError, file, setUrls, user) => {
     const { data, error } = await supabase.storage
         .from('files')
         .upload(filePath, file)
     if (error) {
-        console.log('Error:', error)
-        alert('Error:', error)
         setIsError(error)
+        console.log(error)
     } else {
-        console.log('Archivo subido')
-        alert('Se subió bien, recarga la pagina xD')
         setIsError('')
+        handleFileList(setIsError, setUrls, user)
     }
 }
 
 
 // Aqui carga todo lo que ese usuario tenga en su carpeta de base de datos o si es admin carga todo lo que hay en archivos pendientes
 export const handleFileList = async (setIsError, setUrls, user) => {
-    const { data, error } = await supabase.storage
-        .from('files')
-        .list(user.user_metadata.type === "user" ? user.id : 'allfiles')
-    if (error) {
-        console.log(error)
-        setIsError(error)
-        return
-    }
-    const urlss = data.map(file => {
-        const { data, error } = supabase.storage
+
+    if (user.user_metadata.type === "user") {
+
+        const { data, error } = await supabase.storage
             .from('files')
-            .getPublicUrl(
-                user.user_metadata.type === "user" ? `${user.id}/${file.name}` :
-                    user.user_metadata.type === "admin" && `allfiles/${file.name}`)
+            .list(user.id)
         if (error) {
+            console.log(error)
             setIsError(error)
             return
         }
-        setIsError('')
-        return { name: file.name, url: data.publicUrl }
-    })
-    setUrls(urlss)
+        const urlss = data.map(file => {
+            const { data, error } = supabase.storage
+                .from('files')
+                .getPublicUrl(`${user.id}/${file.name}`)
+            if (error) {
+                setIsError(error)
+                return
+            }
+            setIsError('')
+            return { name: file.name, url: data.publicUrl }
+        })
+        setUrls(urlss)
+
+        console.log('se actualizó la tabla')
+
+    }
+
+    if (user.user_metadata.type === "admin") {
+
+        //aqui tengo que moverle mañana
+
+        const { data, error } = await supabase.storage
+            .from('files')
+            .list('allfiles')
+        if (error) {
+            console.log(error)
+            setIsError(error)
+            return
+        }
+        const urlss = data.map(file => {
+            const { data, error } = supabase.storage
+                .from('files')
+                .getPublicUrl(`allfiles/${file.name}`)
+            if (error) {
+                setIsError(error)
+                console.log('handleFileList')
+                return
+            }
+            setIsError('')
+            return { name: file.name, url: data.publicUrl }
+        })
+        setUrls(urlss)
+
+    }
 }
 
 //Agregar a la tabla donde están los archivos permitidos
 
 export const handleAdd = (name, setIsError, careerSelected, courseSelected, user, isError, setUrls) => {
     handleTableFile(name, user.id, isError, setIsError, careerSelected, courseSelected)
+}
+
+export const handleAddPendingFiles = async (name, user, setIsError, careerSelected, courseSelected, description, setUrls) => {
+
+    if (!careerSelected) {
+        setIsError('No hay ninguna carreara seleccionada')
+        return
+    }
+    if (!courseSelected) {
+        setIsError('No hay ningun curso seleccionado')
+        return
+    }
+
+    const user_id = user.id
+
+    const { error } = await supabase.from('pendingfiles').insert([{
+        name,
+        user_id,
+        career: careerSelected ? careerSelected.id : "",
+        course: courseSelected ? courseSelected.name : "",
+        description
+    }])
+
+    if (error) {
+        setIsError(error)
+        console.log('handleAddPendingFiles')
+        return
+    } else {
+        setIsError('')
+        handleFileList(setIsError, setUrls, user)
+    }
 }
 
 
@@ -126,8 +191,6 @@ export const handleDelete = async (name, setUrls, setIsError, user) => {
     if (error) {
         setIsError(error)
         return
-    } else {
-        handleFileList(setIsError, setUrls, user)
     }
 
     user.user_metadata.type === "user" && await supabase.storage
@@ -135,4 +198,6 @@ export const handleDelete = async (name, setUrls, setIsError, user) => {
         .remove([`${user.id}/${name}`])
 
     user.user_metadata.type === "admin" && await supabase.from('files').delete().eq('name', name)
+
+    handleFileList(setIsError, setUrls, user)
 }

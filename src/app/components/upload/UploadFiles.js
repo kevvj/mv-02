@@ -85,7 +85,7 @@ const UploadFiles = () => {
 
                 <div>Prueba de archivo seleccionado: {file && file.name}</div>
 
-                <button onClick={() => uploadFile(file, setIsError, careerSelected, courseSelected, user, isError, setUrls)}>Subir archivo</button>
+                <button onClick={() => uploadFile(file, setIsError, careerSelected, courseSelected, user, isError, setUrls, "descripción ejemplo")}>Subir archivo</button>
 
                 {isError && <p>{isError}</p>}
 
