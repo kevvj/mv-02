@@ -18,6 +18,7 @@ const UploadFiles = () => {
     const [careers, setCareers] = useState([])
     const [courseSelected, setCourseSelected] = useState(null)
     const [careerSelected, setCareerSelected] = useState(null)
+    const [isLoad, setIsLoad] = useState(false)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -41,6 +42,7 @@ const UploadFiles = () => {
         }
         fetchContent()
         fetchUser()
+        setIsLoad(true)
     }, [])
 
 
@@ -93,10 +95,9 @@ const UploadFiles = () => {
                 <div>
                     {urls && urls.map(item => (
                         <div key={item.url} className="load-item">
-                            <Load name={item.name}></Load>
+                            {isLoad && <Load name={item.name}></Load>}
                             <div className="load-items-description">
                                 <div className="load-items-name">
-                                    <p>{item.name}</p>
                                 </div>
                                 <div className="load-items-trashicon">
                                     <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError, user)}></FontAwesomeIcon>
