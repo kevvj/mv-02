@@ -68,7 +68,7 @@ export const uploadFile = async (file, setIsError, careerSelected, courseSelecte
 
     setIsError('')
 }
-
+//aaaaaaa
 
 //Cargar el archivo a una carpeta en especifico ya sea a la general o a la personal
 export const uploadFileToFolder = async (filePath, setIsError, file, setUrls, user) => {
