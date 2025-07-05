@@ -12,7 +12,7 @@ export const Load = ({ name }) => {
         <div>
             {data.publicUrl.endsWith('.pdf') && <Pdf href={data.publicUrl} name={name}></Pdf>}
             {data.publicUrl.endsWith('.docx') && <Word href={data.publicUrl} name={name}></Word>}
-            {data.publicUrl.endsWith('.csv') && <Excel href={data.publicUrl} name={name}></Excel>}
+            {/\.(csv|xlsx|xls)$/i.test(data.publicUrl) && <Excel href={data.publicUrl} name={name}></Excel>}
             {data.publicUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i) && <ImgItem src={data.publicUrl}></ImgItem>}
         </div>
     )

@@ -34,8 +34,8 @@ export const Word = ({href,name}) => {
 export const Excel = ({href,name}) => {
     return (
         <span className="download-item">
-            <div className="download-item-name-icon">
-                <img src="/excel.png" className="download-item-name"></img>
+            <div className="download-item-name">
+                <img src="/excel.png" className="download-item-name-icon"></img>
                 <p>{name}</p>
             </div>
             <a className="download-icon" href = {href} target="_blank">
