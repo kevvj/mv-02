@@ -8,6 +8,7 @@ import { handleFile, uploadFile, handleFileList, handleAdd, handleDelete } from 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"
+import LoadSpinner from "../Loader"
 
 const UploadFiles = () => {
     const [file, setFile] = useState(null)
@@ -95,7 +96,10 @@ const UploadFiles = () => {
                 <div>
                     {urls && urls.map(item => (
                         <div key={item.url} className="load-item">
-                            {isLoad && <Load name={item.name}></Load>}
+                            {isLoad ? <Load name={item.name}></Load>
+                            :
+                            <LoadSpinner></LoadSpinner>}
+                            
                             <div className="load-items-description">
                                 <div className="load-items-name">
                                 </div>

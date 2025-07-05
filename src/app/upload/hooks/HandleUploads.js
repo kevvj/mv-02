@@ -72,15 +72,24 @@ export const uploadFile = async (file, setIsError, careerSelected, courseSelecte
 
 //Cargar el archivo a una carpeta en especifico ya sea a la general o a la personal
 export const uploadFileToFolder = async (filePath, setIsError, file, setUrls, user) => {
-    const { data, error } = await supabase.storage
-        .from('files')
-        .upload(filePath, file)
-    if (error) {
-        setIsError(error)
-        console.log(error)
-    } else {
+
+    try {
+
+        const { data, error } = await supabase.storage
+            .from('files')
+            .upload(filePath, file)
+        if (error) {
+            setIsError(error?.message || 'Error desconocido')
+            console.log(error)
+            return
+        }
+
         setIsError('')
         handleFileList(setIsError, setUrls, user)
+
+    } catch (err) {
+        console.log(err)
+        setIsError('Error inesperado')
     }
 }
 
