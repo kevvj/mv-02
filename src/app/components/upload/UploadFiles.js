@@ -45,6 +45,8 @@ const UploadFiles = () => {
         setIsLoad(true)
     }, [])
 
+   
+
 
 
     return (
@@ -95,7 +97,7 @@ const UploadFiles = () => {
                 <div>
                     {urls && urls.map(item => (
                         <div key={item.url} className="load-item">
-                            {isLoad ? <Load name={item.name}></Load>
+                            {isLoad ? <Load name={item.name} user_id={user.id}></Load>
                             :
                             <LoadSpinner></LoadSpinner>}
                             
@@ -117,6 +119,7 @@ const UploadFiles = () => {
                 </div>
 
             </div>
+
         </>
     )
 }
