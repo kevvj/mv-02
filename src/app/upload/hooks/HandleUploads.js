@@ -60,11 +60,10 @@ export const uploadFile = async (file, setIsError, careerSelected, courseSelecte
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .replace(/\s+/g, '_')
         .replace(/[^a-zA-Z0-9._-]/g, '')
-    const filePath = `allfiles/${safeName}`
-    const personalFilePath = `${user.id}/${safeName}`
-    uploadFileToFolder(filePath, setIsError, file, setUrls, user)
 
-    user.user_metadata.type === "user" && uploadFileToFolder(personalFilePath, setIsError, file, setUrls, user)
+    const personalFilePath = `${user.id}/${safeName}`
+
+    uploadFileToFolder(personalFilePath, setIsError, file, setUrls, user)
 
     handleAddPendingFiles(safeName, user, setIsError, careerSelected, courseSelected, description, setUrls)
 
@@ -128,29 +127,6 @@ export const handleFileList = async (setIsError, setUrls, user) => {
 
     if (user.user_metadata.type === "admin") {
 
-        //aqui tengo que moverle mañana
-
-        const { data, error } = await supabase.storage
-            .from('files')
-            .list('allfiles')
-        if (error) {
-            console.log(error)
-            setIsError(error)
-            return
-        }
-        const urlss = data.map(file => {
-            const { data, error } = supabase.storage
-                .from('files')
-                .getPublicUrl(`allfiles/${file.name}`)
-            if (error) {
-                setIsError(error)
-                console.log('handleFileList')
-                return
-            }
-            setIsError('')
-            return { name: file.name, url: data.publicUrl }
-        })
-        setUrls(urlss)
 
         const { data: prueba1, error: pruebaError } = await supabase
             .from('pendingfiles')
