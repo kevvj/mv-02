@@ -146,7 +146,7 @@ export const handleFileList = async (setIsError, setUrls, user) => {
             if (pruebaError2) return
 
             setIsError('')
-            return { name: items.name, url: prueba2.publicUrl }
+            return { name: items.name, url: prueba2.publicUrl, career: items.career, course: items.course }
         })
 
         setUrls(pruebaDeUrls)

@@ -45,7 +45,7 @@ const UploadFiles = () => {
         setIsLoad(true)
     }, [])
 
-   
+
 
 
 
@@ -95,27 +95,35 @@ const UploadFiles = () => {
 
 
                 <div>
-                    {urls && urls.map(item => (
+                    {urls && urls.length !== 0 ? urls.map(item => (
                         <div key={item.url} className="load-item">
-                            {isLoad ? <Load name={item.name} user_id={user.id}></Load>
-                            :
-                            <LoadSpinner></LoadSpinner>}
-                            
-                            <div className="load-items-description">
-                                <div className="load-items-name">
-                                </div>
-                                <div className="load-items-trashicon">
-                                    <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError, user)}></FontAwesomeIcon>
-                                </div>
+                            <div className="load-item-container">
+                                {isLoad ? <Load name={item.name} user_id={user.id}></Load>
+                                    :
+                                    <LoadSpinner></LoadSpinner>}
 
-                                {user.user_metadata.type === "admin" && <div className="load-items-checkicon">
-                                    <FontAwesomeIcon icon={faCircleCheck} onClick={() => handleAdd(
-                                        item.name, setIsError, careerSelected, courseSelected, user, isError, setUrls
-                                    )}></FontAwesomeIcon>
-                                </div>}
+                                <div className="load-items-description">
+                                    <div className="load-items-name">
+                                    </div>
+                                    <div className="load-items-trashicon">
+                                        <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(item.name, setUrls, setIsError, user)}></FontAwesomeIcon>
+                                    </div>
+
+                                    {user.user_metadata.type === "admin" && <div className="load-items-checkicon">
+                                        <FontAwesomeIcon icon={faCircleCheck} onClick={() => handleAdd(
+                                            item.name, setIsError, careerSelected, courseSelected, user, isError, setUrls
+                                        )}></FontAwesomeIcon>
+                                    </div>}
+                                </div>
                             </div>
+
+                            <div className="user-item-section">
+                                <h5>Sección recomendada por el usuario</h5>
+                                <p>{`${item.career} / ${item.course}`}</p>
+                            </div>
+
                         </div>
-                    ))}
+                    )) : <p>No hay archivos.</p>}
                 </div>
 
             </div>

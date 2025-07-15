@@ -7,7 +7,7 @@
     border-radius: 4px;
 }
 
-.upload-file-container{
+.upload-file-container {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -16,51 +16,60 @@
     gap: 10px;
 }
 
-.view-options-container{
+.view-options-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.load-item{
+.load-item {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.load-items-description{
+.load-items-description {
     display: flex;
     gap: 20px;
     padding: 10px;
     align-items: center;
 }
 
-.load-items-description p{
+.load-items-description p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.load-items-name{
+.load-items-name {
     max-width: 150px;
     font-size: 1.2rem;
 }
 
-.load-items-trashicon{
+.load-items-trashicon {
     color: rgb(255, 130, 96);
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.load-items-checkicon{
+.load-items-checkicon {
     color: rgb(183, 244, 202);
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.load-items-trashicon:hover{
+.load-items-trashicon:hover {
     color: rgb(255, 55, 0);
 }
 
-.load-items-checkicon:hover{
+.load-items-checkicon:hover {
     color: rgb(0, 255, 81);
+}
+
+.load-item-container {
+    display: flex;
+}
+
+.user-item-section h4{
+font-size: 1rem;
 }
