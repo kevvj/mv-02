@@ -26,7 +26,6 @@ const UploadFiles = () => {
             const { data: { user } } = await supabase.auth.getUser()
 
             if (!user) {
-                alert('Usuario no loggeado')
                 setIsError('El usuario no está loggeado')
             } else {
                 setUser(user)
