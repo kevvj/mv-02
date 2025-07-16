@@ -9,6 +9,7 @@ export default function LogIn() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(false)
+  const [closed, setClosed] = useState(false)
 
   const router = useRouter()
 
@@ -20,7 +21,7 @@ export default function LogIn() {
     if (response === 'Usuario autenticado') {
       router.push('/')
       setIsLoggedIn(true)
-    }else{
+    } else {
       setError(true)
     }
   }
@@ -31,7 +32,7 @@ export default function LogIn() {
   }
 
   return (
-    <div className="auth-container">
+    <div className="auth-container" style={{display:closed ? "none":"flex"}}>
       <form>
 
         <h2>Iniciar Sesión</h2>
@@ -52,6 +53,8 @@ export default function LogIn() {
           <button onClick={handle}>Iniciar</button>
           <button onClick={handleRegister}>Registro</button>
         </div>
+
+        <span className='sign-close-button' onClick={() => setClosed(true)}>X</span>
 
       </form>
     </div>
